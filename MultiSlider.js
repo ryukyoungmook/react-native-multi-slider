@@ -356,11 +356,11 @@ export default class MultiSlider extends React.Component {
               markerContainerOne,
               positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
+            ref={component => this._markerOne = component}
+            {...this._panResponderOne.panHandlers}
           >
             <View
               style={[styles.touch, touchStyle]}
-              ref={component => this._markerOne = component}
-              {...this._panResponderOne.panHandlers}
             >
               <Marker
                 enabled={this.props.enabledOne}
@@ -373,11 +373,12 @@ export default class MultiSlider extends React.Component {
           </View>
           {twoMarkers &&
           positionOne !== this.props.sliderLength &&
-          <View style={[styles.markerContainer, markerContainerTwo]}>
+          <View style={[styles.markerContainer, markerContainerTwo]}
+                ref={component => this._markerTwo = component}
+                {...this._panResponderTwo.panHandlers}
+          >
             <View
               style={[styles.touch, touchStyle]}
-              ref={component => this._markerTwo = component}
-              {...this._panResponderTwo.panHandlers}
             >
               <Marker
                 pressed={this.state.twoPressed}
