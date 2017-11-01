@@ -12,60 +12,6 @@ import {
 import DefaultMarker from './DefaultMarker';
 import { createArray, valueToPosition, positionToValue } from './converters';
 
-MultiSlider.defaultProps = {
-    values: [0],
-    onValuesChangeStart: () => {
-    },
-    onValuesChange: values => {
-    },
-    onValuesChangeFinish: values => {
-    },
-    step: 1,
-    min: 0,
-    max: 10,
-    touchDimensions: {
-      height: 50,
-      width: 50,
-      borderRadius: 15,
-      slipDisplacement: 200,
-    },
-    customMarker: DefaultMarker,
-    sliderLength: 280,
-    onToggleOne: undefined,
-    onToggleTwo: undefined,
-    enabledOne: true,
-    enabledTwo: true,
-  };
-
-MultiSlider.propTypes = {
-    values: PropTypes.arrayOf(PropTypes.number),
-
-    onValuesChangeStart: PropTypes.func,
-    onValuesChange: PropTypes.func,
-    onValuesChangeFinish: PropTypes.func,
-
-    sliderLength: PropTypes.number,
-    touchDimensions: PropTypes.object,
-
-    customMarker: PropTypes.func,
-
-    min: PropTypes.number,
-    max: PropTypes.number,
-    step: PropTypes.number,
-
-    optionsArray: PropTypes.array,
-
-    containerStyle: ViewPropTypes.style,
-    trackStyle: ViewPropTypes.style,
-    selectedStyle: ViewPropTypes.style,
-    unselectedStyle: ViewPropTypes.style,
-    markerStyle: ViewPropTypes.style,
-    pressedMarkerStyle: ViewPropTypes.style,
-    enabledOne: PropTypes.bool,
-    enabledTwo: PropTypes.bool,
-    onToggleOne: PropTypes.func,
-    onToggleTwo: PropTypes.func,
-  };
 
 export default class MultiSlider extends React.Component {
   constructor(props) {
@@ -444,3 +390,59 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 });
+
+MultiSlider.defaultProps = {
+    values: [0],
+    onValuesChangeStart: () => {
+    },
+    onValuesChange: values => {
+    },
+    onValuesChangeFinish: values => {
+    },
+    step: 1,
+    min: 0,
+    max: 10,
+    touchDimensions: {
+      height: 50,
+      width: 50,
+      borderRadius: 15,
+      slipDisplacement: 200,
+    },
+    customMarker: DefaultMarker,
+    sliderLength: 280,
+    onToggleOne: undefined,
+    onToggleTwo: undefined,
+    enabledOne: true,
+    enabledTwo: true,
+  };
+
+MultiSlider.propTypes = {
+    values: PropTypes.arrayOf(PropTypes.number),
+
+    onValuesChangeStart: PropTypes.func,
+    onValuesChange: PropTypes.func,
+    onValuesChangeFinish: PropTypes.func,
+
+    sliderLength: PropTypes.number,
+    touchDimensions: PropTypes.object,
+
+    customMarker: PropTypes.func,
+
+    min: PropTypes.number,
+    max: PropTypes.number,
+    step: PropTypes.number,
+
+    optionsArray: PropTypes.array,
+
+    containerStyle: ViewPropTypes.style,
+    trackStyle: ViewPropTypes.style,
+    selectedStyle: ViewPropTypes.style,
+    unselectedStyle: ViewPropTypes.style,
+    markerStyle: ViewPropTypes.style,
+    pressedMarkerStyle: ViewPropTypes.style,
+    enabledOne: PropTypes.bool,
+    enabledTwo: PropTypes.bool,
+    onToggleOne: PropTypes.func,
+    onToggleTwo: PropTypes.func,
+  };
+
