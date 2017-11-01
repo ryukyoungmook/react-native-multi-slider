@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   PanResponder,
@@ -12,8 +12,32 @@ import {
 import DefaultMarker from './DefaultMarker';
 import { createArray, valueToPosition, positionToValue } from './converters';
 
-export default class MultiSlider extends React.Component {
-  static propTypes = {
+MultiSlider.defaultProps = {
+    values: [0],
+    onValuesChangeStart: () => {
+    },
+    onValuesChange: values => {
+    },
+    onValuesChangeFinish: values => {
+    },
+    step: 1,
+    min: 0,
+    max: 10,
+    touchDimensions: {
+      height: 50,
+      width: 50,
+      borderRadius: 15,
+      slipDisplacement: 200,
+    },
+    customMarker: DefaultMarker,
+    sliderLength: 280,
+    onToggleOne: undefined,
+    onToggleTwo: undefined,
+    enabledOne: true,
+    enabledTwo: true,
+  };
+
+MultiSlider.propTypes = {
     values: PropTypes.arrayOf(PropTypes.number),
 
     onValuesChangeStart: PropTypes.func,
@@ -43,31 +67,7 @@ export default class MultiSlider extends React.Component {
     onToggleTwo: PropTypes.func,
   };
 
-  static defaultProps = {
-    values: [0],
-    onValuesChangeStart: () => {
-    },
-    onValuesChange: values => {
-    },
-    onValuesChangeFinish: values => {
-    },
-    step: 1,
-    min: 0,
-    max: 10,
-    touchDimensions: {
-      height: 50,
-      width: 50,
-      borderRadius: 15,
-      slipDisplacement: 200,
-    },
-    customMarker: DefaultMarker,
-    sliderLength: 280,
-    onToggleOne: undefined,
-    onToggleTwo: undefined,
-    enabledOne: true,
-    enabledTwo: true,
-  };
-
+export default class MultiSlider extends React.Component {
   constructor(props) {
     super(props);
 
@@ -75,7 +75,7 @@ export default class MultiSlider extends React.Component {
       createArray(this.props.min, this.props.max, this.props.step);
     this.stepLength = this.props.sliderLength / this.optionsArray.length;
 
-    var initialValues = this.props.values.map(value =>
+    let initialValues = this.props.values.map(value =>
       valueToPosition(value, this.optionsArray, this.props.sliderLength));
 
     this.state = {
@@ -90,7 +90,7 @@ export default class MultiSlider extends React.Component {
   }
 
   componentWillMount() {
-    var customPanResponder = (start, move, end) => {
+    let customPanResponder = (start, move, end) => {
       return PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
         onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
@@ -179,20 +179,20 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
-    var unconfined = gestureState.dx + this.state.pastOne;
-    var bottom = 0;
-    var trueTop = this.state.positionTwo - this.stepLength;
-    var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
-    var confined = unconfined < bottom
+    let unconfined = gestureState.dx + this.state.pastOne;
+    let bottom = 0;
+    let trueTop = this.state.positionTwo - this.stepLength;
+    let top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+    let confined = unconfined < bottom
       ? bottom
       : unconfined > top ? top : unconfined;
-    var value = positionToValue(
+    let value = positionToValue(
       this.state.positionOne,
       this.optionsArray,
       this.props.sliderLength,
     );
 
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    let slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
       this.setState({
@@ -206,7 +206,7 @@ export default class MultiSlider extends React.Component {
           valueOne: value,
         },
         () => {
-          var change = [this.state.valueOne];
+          let change = [this.state.valueOne];
           if (this.state.valueTwo) {
             change.push(this.state.valueTwo);
           }
@@ -221,18 +221,18 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
-    var unconfined = gestureState.dx + this.state.pastTwo;
-    var bottom = this.state.positionOne + this.stepLength;
-    var top = this.props.sliderLength;
-    var confined = unconfined < bottom
+    let unconfined = gestureState.dx + this.state.pastTwo;
+    let bottom = this.state.positionOne + this.stepLength;
+    let top = this.props.sliderLength;
+    let confined = unconfined < bottom
       ? bottom
       : unconfined > top ? top : unconfined;
-    var value = positionToValue(
+    let value = positionToValue(
       this.state.positionTwo,
       this.optionsArray,
       this.props.sliderLength,
     );
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    let slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
       this.setState({
@@ -263,7 +263,7 @@ export default class MultiSlider extends React.Component {
         onePressed: !this.state.onePressed,
       },
       () => {
-        var change = [this.state.valueOne];
+        let change = [this.state.valueOne];
         if (this.state.valueTwo) {
           change.push(this.state.valueTwo);
         }
